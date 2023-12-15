@@ -14,29 +14,20 @@ class EpisodeController extends Controller
      */
     public function index()
     {
-        $movie_episode  = Episode::with('movie')->orderBy('movie_id','DESC')->get();
+        $movie_episode  = Episode::with('movie')->orderBy('movie_id', 'DESC')->get();
         // return response()->json($movie_episode);
-        return view('admin.episode.index',compact('movie_episode'));
+        return view('admin.episode.index', compact('movie_episode'));
     }
 
-    public function select_movie()
-    {
-        $id = $_GET['id'];
-        $movie = Movie::find($id);
-        $output = '<option> ---Chọn tập phim---</option>';
-        for($i=1;$i<=$movie->sotap;$i++){
-            $output.='<option value="'.$i.'">'.$i.'</option>';
-        }
-        echo $output;
-    }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $list_movie = Movie::orderBy('id','DESC')->pluck('title','id');
-        return view('admin.episode.create',compact('list_movie'));
+        $list_movie = Movie::orderBy('id', 'DESC')->pluck('title', 'id');
+        return view('admin.episode.create', compact('list_movie'));
     }
 
     /**
@@ -66,9 +57,9 @@ class EpisodeController extends Controller
      */
     public function edit(string $id)
     {
-        $list_movie = Movie::orderBy('id','DESC')->pluck('title', 'id');
+        $list_movie = Movie::orderBy('id', 'DESC')->pluck('title', 'id');
         $episode = Episode::find($id);
-        return view('admin.episode.edit',compact('episode','list_movie'));
+        return view('admin.episode.edit', compact('episode', 'list_movie'));
     }
 
     /**
@@ -83,6 +74,23 @@ class EpisodeController extends Controller
         $epi->episode = $data['episode'];
         $epi->save();
         return redirect()->back();
+    }
+
+    public function select_movie()
+    {
+        $id = $_GET['id'];
+        $movie = Movie::find($id);
+        if ($movie->thuocphim == 'phimbo') {
+            $output = '<option> ---Chọn tập phim---</option>';
+            for ($i = 1; $i <= $movie->sotap; $i++) {
+                $output .= '<option value="' . $i . '">' . $i . '</option>';
+            }
+        } else {
+            $output = '<option> ---Chọn tập phim---</option>';
+            $output .= '<option value="HD">HD</option><option value="FullHD">FullHD</option>';
+        }
+
+        echo $output;
     }
 
     /**

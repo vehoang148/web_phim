@@ -325,6 +325,52 @@
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 
+
+    {{-- Thay dổi danh mục ajax --}}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript">
+        $('.category_choose').change(function() {
+            var category_id = $(this).val();
+            var movie_id = $(this).attr('id');
+            // console.log('Category ID:', category_id);
+            // console.log('Movie ID:', movie_id);
+            $.ajax({
+                url: "{{ route('category-choose') }}",
+                method: "GET",
+                data: {
+                    category_id: category_id,
+                    movie_id: movie_id
+                },
+                success: function(data) {
+                    console.log(data);
+                    alert('Thay đổi thành công');
+                },
+            });
+        });
+    </script>
+    {{-- Thay dổi quốc gia ajax --}}
+    <script type="text/javascript">
+        $('.country_choose').change(function() {
+            var country_id = $(this).val();
+            var movie_id = $(this).attr('id');
+            // console.log('Category ID:', category_id);
+            // console.log('Movie ID:', movie_id);
+            $.ajax({
+                url: "{{ route('country-choose') }}",
+                method: "GET",
+                data: {
+                    country_id: country_id,
+                    movie_id: movie_id
+                },
+                success: function(data) {
+                    console.log(data);
+                    alert('Thay đổi thành công');
+                },
+            });
+        });
+    </script>
+
+    {{-- năm phim --}}
     <script type="text/javascript">
         $('.select-year').change(function() {
             var year = $(this).find(':selected').val();

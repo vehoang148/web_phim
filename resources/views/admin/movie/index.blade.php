@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="row justify-content-center">
         <div class="card">
             <div class="card-header">
@@ -35,8 +34,8 @@
                             <th scope="col">Phim hot</th>
                             <th scope="col">Thuộc phim</th>
                             <th scope="col">Danh mục</th>
-                            <th scope="col">Thể loại</th>
                             <th scope="col">Quốc gia</th>
+                            <th scope="col">Thể loại</th>
                             <th scope="col">Số tập</th>
                             <th scope="col">Tags</th>
                             <th scope="col">Nội dung</th>
@@ -93,21 +92,32 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($movie->thuocphim=='phimle')
-                                    Phim lẻ
+                                    @if ($movie->thuocphim == 'phimle')
+                                        Phim lẻ
                                     @else
-                                       Phim bộ
+                                        Phim bộ
                                     @endif
                                 </td>
-                                <td>{{ $movie->category->title }}</td>
-
+                                {{-- <td>{{ $movie->category->title }}</td> --}}
+                                <td>
+                                    {!! Form::select('category_id', $category, isset($movie) ? $movie->category->id : '', [
+                                        'class' => 'form-control category_choose',
+                                        'id' => $movie->id,
+                                    ]) !!}
+                                </td>
+                                <td>
+                                    {!! Form::select('country_id', $country, isset($movie) ? $movie->country->id : '', [
+                                        'class' => 'form-control country_choose',
+                                        'id' => $movie->id,
+                                    ]) !!}
+                                </td>
                                 <td>
                                     @foreach ($movie->movie_genre as $mov_gen)
                                         <button class="btn btn-dark"> {{ $mov_gen->title }}</button>
                                     @endforeach
                                 </td>
 
-                                <td>{{ $movie->country->title }}</td>
+
                                 <td>{{ $movie->sotap }}</td>
                                 <td>{{ $movie->tags }}</td>
                                 <td>{{ $movie->description }}</td>

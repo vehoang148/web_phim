@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Storage;
 use App\Models\Movie_Genre;
 use Illuminate\Support\Facades\File;
+
 class MovieController extends Controller
 {
     /**
@@ -20,17 +21,21 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $list = Movie::with('category','movie_genre','country')->orderBy('id', 'DESC')->get();
-        $path = public_path()."/json/";
-        if(!is_dir($path))
-        {
-            mkdir($path,0777,true);
+        $list = Movie::with('category', 'movie_genre', 'country')->orderBy('id', 'DESC')->get();
+        $category = Category::pluck('title', 'id');
+        $genre = Genre::pluck('title', 'id');
+        $country = Country::pluck('title', 'id');
+
+        $path = public_path() . "/json/";
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
         }
-        File::put($path.'movie.json',json_encode($list));
-        return view('admin.movie.index', compact('list'));
+        File::put($path . 'movie.json', json_encode($list));
+        return view('admin.movie.index', compact('list', 'category', 'genre', 'country'));
     }
 
-    public function update_year(Request $request) {
+    public function update_year(Request $request)
+    {
         $data = $request->all();
         $movie = Movie::find($data['id_phim']);
         $movie->year = $data['year'];
@@ -46,7 +51,7 @@ class MovieController extends Controller
         $genre = Genre::pluck('title', 'id');
         $list_genre = Genre::all();
         $country = Country::pluck('title', 'id');
-        return view('admin.movie.create', compact('category', 'genre', 'country','list_genre'));
+        return view('admin.movie.create', compact('category', 'genre', 'country', 'list_genre'));
     }
 
     /**
@@ -65,8 +70,7 @@ class MovieController extends Controller
         $movie->status = $data['status'];
         $movie->thuocphim = $data['thuocphim'];
         $movie->category_id = $data['category_id'];
-        foreach($data['genre'] as $key => $gen)
-        {
+        foreach ($data['genre'] as $key => $gen) {
             $movie->genre_id = $gen[0];
         }
 
@@ -116,7 +120,7 @@ class MovieController extends Controller
         $country = Country::pluck('title', 'id');
         $movie =  Movie::find($id);
         $movie_genre = $movie->movie_genre;
-        return view('admin.movie.edit', compact('category', 'genre', 'country', 'movie','list_genre','movie_genre'));
+        return view('admin.movie.edit', compact('category', 'genre', 'country', 'movie', 'list_genre', 'movie_genre'));
     }
 
     /**
@@ -135,8 +139,7 @@ class MovieController extends Controller
         $movie->status = $data['status'];
         $movie->thuocphim = $data['thuocphim'];
         $movie->category_id = $data['category_id'];
-        foreach($data['genre'] as $key => $gen)
-        {
+        foreach ($data['genre'] as $key => $gen) {
             $movie->genre_id = $gen[0];
         }
 
@@ -178,9 +181,32 @@ class MovieController extends Controller
         if (!empty($movie->image)) {
             unlink('uploads/movie/' . $movie->image);
         }
-        Movie_Genre::whereIn('movie_id',[$movie->id])->delete();
-        Episode::whereIn('movie_id',[$movie->id])->delete();
+        Movie_Genre::whereIn('movie_id', [$movie->id])->delete();
+        Episode::whereIn('movie_id', [$movie->id])->delete();
         $movie->delete();
         return redirect()->back();
+    }
+
+    //thay dổi danh mục sử dụng ajax
+    public function category_chosse(Request $request)
+    {
+        // Example logic: Update the movie category in the database
+        $movie = Movie::find($request->movie_id);
+        $movie->category_id = $request->category_id;
+        $movie->save();
+
+        // Return a response
+        return response()->json(['success' => true, 'message' => 'Category updated successfully']);
+    }
+    //thay dổi quốc gia sử dụng ajax
+    public function country_chosse(Request $request)
+    {
+        // Example logic: Update the movie category in the database
+        $movie = Movie::find($request->movie_id);
+        $movie->country_id = $request->country_id;
+        $movie->save();
+
+        // Return a response
+        return response()->json(['success' => true, 'message' => 'country updated successfully']);
     }
 }

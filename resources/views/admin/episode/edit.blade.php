@@ -18,17 +18,29 @@
                 {!! Form::open(['route' => 'episode.store', 'method' => 'POST']) !!}
                 <div class="form-group">
                     {!! Form::label('movie_id', 'Tên phim', []) !!}
-                    {!! Form::select('movie_id',  ['0'=>'Chọn phim','Phim mới nhất'=>$list_movie],isset($episode) ? $episode->movie_id : '', ['class' => 'form-control select-movie']) !!}
+                    {!! Form::select(
+                        'movie_id',
+                        ['0' => 'Chọn phim', 'Phim mới nhất' => $list_movie],
+                        isset($episode) ? $episode->movie_id : '',
+                        ['class' => 'form-control select-movie'],
+                    ) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('link', 'Link phim', []) !!}
-                    {!! Form::text('link', isset($episode) ? $episode->linkphim : '', ['class' => 'form-control', 'placeholder' => '.....']) !!}
+                    {!! Form::text('link', isset($episode) ? $episode->linkphim : '', [
+                        'class' => 'form-control',
+                        'placeholder' => '.....',
+                    ]) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('episode', 'Tập phim', []) !!}
                     <select name="episode" id="show_movie" class="form-control">
-
-                </select>
+                        {!! Form::text('episode', isset($episode) ? $episode->episode : '', [
+                            'class' => 'form-control',
+                            'placeholder' => '.....',
+                            'readonly',
+                        ]) !!}
+                    </select>
 
                 </div>
                 {!! Form::submit('Cập Nhật Phim', ['class' => 'btn btn-success']) !!}

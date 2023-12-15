@@ -1,79 +1,81 @@
 @extends('index')
 @section('content')
-    <div class="row container" id="wrapper">
-        <div class="halim-panel-filter">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">{{ $cate_slug->title }}</a> »
-                                    <span class="breadcrumb_last" aria-current="page">2020</span></span></span></div>
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Trang chủ</a>
+                        <a href="./categories.html">Danh mục</a>
+                        <span>{{ $cate_slug->title }}</span>
                     </div>
                 </div>
-            </div>
-            <div id="ajax-filter" class="panel-collapse collapse" aria-expanded="true" role="menu">
-                <div class="ajax"></div>
             </div>
         </div>
-        <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
-            <section>
-                <div class="section-bar clearfix">
-                    <h1 class="section-title"><span>{{ $cate_slug->title }}</span></h1>
-                </div>
-                <div class="section-bar">
-                    <div class="row">
-                        @include('pages.include.filter')
-                    </div>
-                </div>
-                <div class="halim_box">
-                    @foreach ($movie as $key => $cate)
-                        <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-27021">
-                            <div class="halim-item">
-                                <a class="halim-thumb" href="{{ route('movie', $cate->slug) }}" title="{{ $cate->title }}">
-                                    <figure><img class="lazy img-responsive"
-                                            src="{{ asset('uploads/movie/' . $cate->image) }}" alt="{{ $cate->title }}"
-                                            title="{{ $cate->title }}"></figure>
-                                    <span class="status">
-                                        @if ($cate->quality == 0)
-                                            HD
-                                        @elseif ($cate->quality == 1)
-                                            SD
-                                        @elseif ($cate->quality == 2)
-                                            FullHD
-                                        @elseif ($cate->quality == 3)
-                                            2K
-                                        @elseif ($cate->quality == 4)
-                                            4K
-                                        @else
-                                            Trailer
-                                        @endif
-                                    </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
-                                        @if ($cate->phude == 0)
-                                            Vietsub
-                                        @elseif ($cate->phude == 1)
-                                            Thuyết minh
-                                        @endif
-                                    </span>
-                                    <div class="icon_overlay"></div>
-                                    <div class="halim-post-title-box">
-                                        <div class="halim-post-title ">
-                                            <p class="entry-title">{{ $cate->title }}</p>
-                                            <p class="original_title">{{ $cate->name_eng }}</p>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Product Section Begin -->
+    <section class="product-page spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="product__page__content">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <h4>{{ $cate_slug->title }}</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <div class="product__page__filter">
+                                        <p>Lọc:</p>
+                                        <select>
+                                            <option value="">A-Z</option>
+                                            <option value="">1-10</option>
+                                            <option value="">10-50</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            @foreach ($movie->take('21') as $key => $movie_country)
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg"
+                                            data-setbg="{{ asset('uploads/movie/' . $movie_country->image) }}">
+                                            <div class="ep">18 / 18</div>
+                                            <?php $randomComment = mt_rand(1, 1000);
+                                            $randomView = mt_rand(100, 10000); ?>
+                                            <div class="comment"><i class="fa fa-comments"></i> <?php echo $randomComment; ?></div>
+                                            <div class="view"><i class="fa fa-eye"></i> <?php echo $randomView; ?></div>
+                                            <a href="{{ route('movie', $movie_country->slug) }}" class="play-btn">
+                                                <i class="fa fa-play"></i>
+                                            </a>
+                                            <img src="{{ asset('uploads/movie/' . $movie_country->image) }}" alt="">
+                                        </div>
+                                        <div class="product__item__text">
+                                            <ul>
+                                                <li>Active</li>
+                                                <li>Movie</li>
+                                            </ul>
+                                            <h5><a
+                                                    href="{{ route('movie', $movie_country->slug) }}">{{ $movie_country->title }}</a>
+                                            </h5>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
-                        </article>
-                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    {{-- Sidebar --}}
+                    @include('pages.include.sidebarView')
                 </div>
-                <div class="clearfix"></div>
-                <div class="text-center">
-                    {{ $movie->links('pagination::bootstrap-5') }}
-                </div>
-            </section>
-        </main>
-        {{--  Sidebar  --}}
-        @include('pages.include.sidebar')
-    </div>
-    </div>
-    </div>
+            </div>
+    </section>
+    <!-- Product Section End -->
 @endsection
