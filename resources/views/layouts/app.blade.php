@@ -1,326 +1,512 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('backend/img/apple-icon.png') }}">
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <title>
-        Material Dashboard
+        Glance
+
     </title>
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Nucleo Icons -->
-    <link href="{{ asset('backend/css/nucleo-icons.css') }}" rel="stylesheet" />
-    <link href="{{ asset('backend/css/nucleo-svg.css') }}" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- CSS Files -->
-    <link id="pagestyle" href="{{ asset('backend/css/material-dashboard.css?v=3.0.0') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('backend/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Custom CSS -->
+    <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet" type="text/css" />
+    <!-- font-awesome icons CSS -->
+    <link href="{{ asset('backend/css/font-awesome.css') }}" rel="stylesheet" />
+    <!-- //font-awesome icons CSS-->
+    <!-- side nav css file -->
+    <link href="{{ asset('backend/css/SidebarNav.min.css') }}" media="all" rel="stylesheet" type="text/css" />
+    <!-- //side nav css file -->
+    <!-- js-->
+    <script src="{{ asset('backend/js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ asset('backend/js/modernizr.custom.js') }}"></script>
+    <!--webfonts-->
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext"
+        rel="stylesheet" />
+    <!--//webfonts-->
+    <!-- chart -->
+    <script src="{{ asset('backend/js/Chart.js') }}"></script>
+    <!-- //chart -->
+    <!-- Metis Menu -->
+    <script src="{{ asset('backend/js/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('backend/js/custom.js') }}"></script>
+    <link href="{{ asset('backend/css/custom.css') }}" rel="stylesheet" />
+    <!--//Metis Menu -->
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 295px;
+        }
+    </style>
 </head>
 
-<body class="g-sidenav-show  bg-gray-200">
-    <aside
-        class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark"
-        id="sidenav-main">
-        <div class="sidenav-header">
-            <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-                aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
-                target="_blank">
-                <img src="{{ asset('backend/img/logo-ct.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
-            </a>
-        </div>
-        <hr class="horizontal light mt-0 mb-2">
-        <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white active bg-gradient-primary" href="{{ route('category.index') }}">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">dashboard</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Quản lý danh mục</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="{{ route('genre.index') }}">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">table_view</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Quản lý thể loại</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="{{ route('country.index') }}">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">view_in_ar</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Quản lý quốc gia</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="{{ route('movie.index') }}">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Quản lý phim</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="{{ route('episode.index') }}">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">notifications</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Quản lý tập phim</span>
-                    </a>
-                </li>
-                <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages
-                    </h6>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="./pages/profile.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">person</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Profile</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="./pages/sign-in.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">login</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Sign In</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="./pages/sign-up.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">assignment</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Sign Up</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-            <div class="mx-3">
-                <a class="btn bg-gradient-primary mt-4 w-100" href="{{ url('/home') }}" type="button">Trở về trang
-                    chủ</a>
-            </div>
-        </div>
-    </aside>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-            navbar-scroll="true">
-            <div class="container-fluid py-1 px-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
-                                href="javascript:;">Pages</a></li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
-                    </ol>
-                    <h6 class="font-weight-bolder mb-0">Dashboard</h6>
-                </nav>
-                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                        <div class="input-group input-group-outline">
-                            <label class="form-label">Type here...</label>
-                            <input type="text" class="form-control">
-                        </div>
+<body class="cbp-spmenu-push">
+    <div class="main-content">
+        <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+            <!--left-fixed -navigation-->
+            <aside class="sidebar-left">
+                <nav class="navbar navbar-inverse">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target=".collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h1>
+                            <a class="navbar-brand" href="{{ route('movie.index') }}"><span
+                                    class="fa fa-area-chart"></span> Admin<span class="dashboard_text">Design
+                                    dashboard</span></a>
+                        </h1>
                     </div>
-                    <ul class="navbar-nav  justify-content-end">
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                                <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
-                            </a>
-                        </li>
-                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                                <div class="sidenav-toggler-inner">
-                                    <i class="sidenav-toggler-line"></i>
-                                    <i class="sidenav-toggler-line"></i>
-                                    <i class="sidenav-toggler-line"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item px-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0">
-                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell cursor-pointer"></i>
-                            </a>
-                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
-                                aria-labelledby="dropdownMenuButton">
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="./assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">New message</span> from Laur
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    13 minutes ago
-                                                </p>
-                                            </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="sidebar-menu">
+                            <li class="header">MAIN NAVIGATION</li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                </a>
+                            </li>
+
+                            {{-- Danh mục --}}
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-edit"></i> <span>Danh mục phim</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li>
+                                        <a href="{{ route('category.create') }}"><i class="fa fa-angle-right"></i> Thêm
+                                            danh mục</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('category.index') }}"><i class="fa fa-angle-right"></i>Liệt
+                                            kê danh mục</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {{-- Thể loại --}}
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-edit"></i> <span>Thể loại phim</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li>
+                                        <a href="{{ route('genre.create') }}"><i class="fa fa-angle-right"></i> Thêm
+                                            thể loại</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('genre.index') }}"><i class="fa fa-angle-right"></i>Liệt kê
+                                            thể loại</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            {{-- form --}}
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-edit"></i> <span>Quốc gia phim</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li>
+                                        <a href="{{ route('country.create') }}"><i class="fa fa-angle-right"></i> Thêm
+                                            quốc gia</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('country.index') }}"><i class="fa fa-angle-right"></i>Liệt kê
+                                            quốc gia</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {{-- form --}}
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-edit"></i> <span>Phim</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li>
+                                        <a href="{{ route('movie.create') }}"><i class="fa fa-angle-right"></i> Thêm
+                                            phim</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('movie.index') }}"><i class="fa fa-angle-right"></i>Liệt kê
+                                            phim</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('leech-movie') }}"><i class="fa fa-angle-right"></i>Leech
+                                            phim Api</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {{-- Tập phim --}}
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-edit"></i> <span>Tập phim</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li>
+                                        <a href="{{ route('episode.create') }}"><i class="fa fa-angle-right"></i> Thêm
+                                            tập phim</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('episode.index') }}"><i class="fa fa-angle-right"></i>Liệt kê
+                                            tập phim</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="header">LABELS</li>
+                            <li>
+                                <a href="#"><i class="fa fa-angle-right text-red"></i>
+                                    <span>Important</span></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-angle-right text-yellow"></i>
+                                    <span>Warning</span></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-angle-right text-aqua"></i>
+                                    <span>Information</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </nav>
+            </aside>
+        </div>
+        <!--left-fixed -navigation-->
+        <!-- header-starts -->
+        <div class="sticky-header header-section">
+            <div class="header-left">
+                <!--toggle button start-->
+                <button id="showLeftPush"><i class="fa fa-bars"></i></button>
+                <!--toggle button end-->
+                <div class="profile_details_left">
+                    <!--notifications of menu start -->
+                    <ul class="nofitications-dropdown">
+                        <li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">4</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>You have 3 new messages</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img">
+                                            <img src="images/1.jpg" alt="" />
                                         </div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </a>
                                 </li>
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="./assets/img/small-logos/logo-spotify.svg"
-                                                    class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">New album</span> by Travis Scott
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    1 day
-                                                </p>
-                                            </div>
+                                <li class="odd">
+                                    <a href="#">
+                                        <div class="user_img">
+                                            <img src="images/4.jpg" alt="" />
+                                        </div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img">
+                                            <img src="images/3.jpg" alt="" />
+                                        </div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img">
+                                            <img src="images/2.jpg" alt="" />
+                                        </div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">See all messages</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">4</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>You have 3 new notification</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img">
+                                            <img src="images/4.jpg" alt="" />
+                                        </div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li class="odd">
+                                    <a href="#">
+                                        <div class="user_img">
+                                            <img src="images/1.jpg" alt="" />
+                                        </div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img">
+                                            <img src="images/3.jpg" alt="" />
+                                        </div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img">
+                                            <img src="images/2.jpg" alt="" />
+                                        </div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">See all notifications</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false"><i class="fa fa-tasks"></i><span
+                                    class="badge blue1">8</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>You have 8 pending task</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Database update</span><span
+                                                class="percentage">40%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar yellow" style="width: 40%"></div>
                                         </div>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                                                <svg width="12px" height="12px" viewBox="0 0 43 36"
-                                                    version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                    <title>credit-card</title>
-                                                    <g stroke="none" stroke-width="1" fill="none"
-                                                        fill-rule="evenodd">
-                                                        <g transform="translate(-2169.000000, -745.000000)"
-                                                            fill="#FFFFFF" fill-rule="nonzero">
-                                                            <g transform="translate(1716.000000, 291.000000)">
-                                                                <g transform="translate(453.000000, 454.000000)">
-                                                                    <path class="color-background"
-                                                                        d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
-                                                                        opacity="0.593633743"></path>
-                                                                    <path class="color-background"
-                                                                        d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                                                    </path>
-                                                                </g>
-                                                            </g>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    Payment successfully completed
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    2 days
-                                                </p>
-                                            </div>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Dashboard done</span><span
+                                                class="percentage">90%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar green" style="width: 90%"></div>
                                         </div>
                                     </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Mobile App</span><span
+                                                class="percentage">33%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar red" style="width: 33%"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Issues fixed</span><span
+                                                class="percentage">80%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar blue" style="width: 80%"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">See all pending tasks</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <!--notification menu end -->
+                <div class="clearfix"></div>
+            </div>
+            <div class="header-right">
+                <!--search-box-->
+                <div class="search-box">
+                    <form class="input">
+                        <input class="sb-search-input input__field--madoka" placeholder="Search..." type="search"
+                            id="input-31" />
+                        <label class="input__label" for="input-31">
+                            <svg class="graphic" width="100%" height="100%" viewBox="0 0 404 77"
+                                preserveAspectRatio="none">
+                                <path d="m0,0l404,0l0,77l-404,0l0,-77z" />
+                            </svg>
+                        </label>
+                    </form>
+                </div>
+                <!--//end-search-box-->
+                <div class="profile_details">
+                    <ul>
+                        <li class="dropdown profile_details_drop">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <div class="profile_img">
+                                    <span class="prfil-img"><img src="images/2.jpg" alt="" />
+                                    </span>
+                                    <div class="user-name">
+                                        <p>Admin Name</p>
+                                        <span>Administrator</span>
+                                    </div>
+                                    <i class="fa fa-angle-down lnr"></i>
+                                    <i class="fa fa-angle-up lnr"></i>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu drp-mnu">
+                                <li>
+                                    <a href="#"><i class="fa fa-cog"></i> Settings</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-user"></i> My Account</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-suitcase"></i> Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-sign-out"></i> Logout</a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
+                <div class="clearfix"></div>
             </div>
-        </nav>
-        <!-- End Navbar -->
-        <div class="container-fluid py-4">
-            <div class="row">
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">weekend</i>
-                            </div>
-                            <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Danh mục</p>
-                                <h4 class="mb-0">$53k</h4>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">person</i>
-                            </div>
-                            <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Thể loại</p>
-                                <h4 class="mb-0">2,300</h4>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">person</i>
-                            </div>
-                            <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Quốc Gia</p>
-                                <h4 class="mb-0">3,462</h4>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6">
-                    <div class="card">
-                        <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">weekend</i>
-                            </div>
-                            <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Phim</p>
-                                <h4 class="mb-0">$103,430</h4>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal my-0">
-
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                @yield('content')
-            </div>
-
+            <div class="clearfix"></div>
         </div>
-    </main>
+        <!-- //header-ends -->
+        <!-- main content start-->
+        <div id="page-wrapper">
+            <div class="main-page">
+                <div class="col_3">
+                    <div class="col-md-3 widget widget1">
+                        <div class="r3_counter_box">
+                            <i class="pull-left fa fa-dollar icon-rounded"></i>
+                            <div class="stats">
+                                <h5><strong>$452</strong></h5>
+                                <span>Total Revenue</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 widget widget1">
+                        <div class="r3_counter_box">
+                            <i class="pull-left fa fa-laptop user1 icon-rounded"></i>
+                            <div class="stats">
+                                <h5><strong>$1019</strong></h5>
+                                <span>Online Revenue</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 widget widget1">
+                        <div class="r3_counter_box">
+                            <i class="pull-left fa fa-money user2 icon-rounded"></i>
+                            <div class="stats">
+                                <h5><strong>$1012</strong></h5>
+                                <span>Expenses</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 widget widget1">
+                        <div class="r3_counter_box">
+                            <i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
+                            <div class="stats">
+                                <h5><strong>$450</strong></h5>
+                                <span>Expenditure</span>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="clearfix"></div>
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+        <div class="footer">
+            <p>
+                &copy; 2018 Glance Design Dashboard. All Rights Reserved | Design by
+                <a href="https://w3layouts.com/" target="_blank">w3layouts</a>
+            </p>
+        </div>
+        <!--//footer-->
+    </div>
+    <!-- new added graphs chart js-->
+    <script src="{{ asset('backend/js/Chart.bundle.js') }}"></script>
+    <script src="{{ asset('backend/js/utils.js') }}"></script>
+    <script src="{{ asset('backend/js/classie.js') }}"></script>
+    <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
+    <script src="{{ asset('backend/js/scripts.js') }}"></script>
+    <script src="{{ asset('backend/js/SidebarNav.min.js') }}" type="text/javascript"></script>
+    <script>
+        $('.sidebar-menu').SidebarNav();
+    </script>
+    <script src="{{ asset('backend/js/SimpleChart.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
@@ -369,6 +555,28 @@
             });
         });
     </script>
+    {{-- Thay dổi status ajax --}}
+    <script type="text/javascript">
+        $('.status_choose').change(function() {
+            var status = $(this).val();
+            var movie_id = $(this).attr('id');
+            alert(status);
+            alert(movie_id);
+            $.ajax({
+                url: "{{ route('status-choose') }}",
+                method: "GET",
+                data: {
+                    status: status,
+                    movie_id: movie_id
+                },
+                success: function(data) {
+                    console.log(data);
+                    alert('Thay đổi thành công');
+                },
+            });
+        });
+    </script>
+
 
     {{-- năm phim --}}
     <script type="text/javascript">

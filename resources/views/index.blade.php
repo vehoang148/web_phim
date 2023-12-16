@@ -23,6 +23,55 @@
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+    <style>
+        .header__search {
+            display: flex;
+            align-items: center;
+        }
+
+        .header__search form {
+            display: flex;
+            align-items: center;
+        }
+
+        .header__search input[type="text"] {
+            border: 1px solid #fff;
+            /* Add a white border */
+            background: transparent;
+            color: #fff;
+            padding: 0 10px;
+        }
+
+        .header__search button.btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 0 10px;
+        }
+
+        /* Adjustments for smaller screens */
+        @media only screen and (max-width: 768px) {
+            .header__logo {
+                margin-bottom: 10px;
+            }
+
+            .header__search {
+                margin-left: auto;
+                margin-right: 10px;
+                /* Adjust the margin to create space between the search input and icon */
+            }
+
+            .header__nav {
+                display: none;
+                /* Hide the navigation menu on small screens */
+            }
+
+            .header__right {
+                display: flex;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -34,7 +83,7 @@
     <!-- Header Section Begin -->
     <header class="header">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-lg-2">
                     <div class="header__logo">
                         <a href="{{ route('homepage') }}">
@@ -47,17 +96,17 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class=""><a href="{{ route('homepage') }}">Trang chủ</a></li>
-                                {{-- <li><a href="{{ route('phimle', ['slug' => $phimle->slug]) }}">Phim lẻ</a></li> --}}
-                                <li><a href="">Phim lẻ</a></li>
 
-                                <li><a href="#">Phim bộ</a></li>
+                                <li><a href="{{ route('phimle') }}">Phim lẻ</a></li>
+
+                                <li><a href="{{ route('phimbo') }}">Phim bộ</a></li>
 
                                 <li><a href="#">Thể loại <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         @foreach ($genre as $gen)
                                             <li>
                                                 <a href="{{ route('genre', $gen->slug) }}">
-                                                    <i class="fa fa-chevron-right" style="margin-right: 2px;"></i>
+                                                    {{-- <i class="fa fa-chevron-right" style="margin-right: 2px;"></i> --}}
                                                     <span>{{ $gen->title }}</span>
                                                 </a>
                                             </li>
@@ -69,7 +118,7 @@
                                         @foreach ($country as $coun)
                                             <li>
                                                 <a href="{{ route('country', $coun->slug) }}">
-                                                    <i class="fa fa-chevron-right" style="margin-right: 2px;"></i>
+                                                    {{-- <i class="fa fa-chevron-right" style="margin-right: 2px;"></i> --}}
                                                     <span>{{ $coun->title }}</span>
                                                 </a>
                                             </li>
@@ -81,10 +130,16 @@
                                     <ul class="dropdown">
 
                                         <li>
-                                            <a href="">
-                                                <i class="fa fa-chevron-right" style="margin-right: 2px;"></i>
-                                                <span></span>
-                                            </a>
+                                            @for ($year = 2010; $year <= 2024; $year++)
+                                                <a href="{{ route('year', $year) }}">
+                                                    {{-- <i class="fa fa-chevron-right" style="margin-right: 2px;"></i> --}}
+                                                    <span>
+                                                        <option value="{{ $year }}">{{ $year }}
+                                                        </option>
+
+                                                    </span>
+                                                </a>
+                                            @endfor
                                         </li>
 
                                     </ul>
@@ -94,13 +149,25 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <div class="header__right">
+                    <div class="header__right d-flex align-items-center justify-content-end">
+                        <div class="header__search mr-3">
+                            <form class="d-flex">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm.....">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </form>
+                        </div>
                         <a href="#" class="search-switch" id="searchSwitch"><span class="icon_search"></span></a>
-                        <a href="./login.html"><span class="icon_profile"></span></a>
+                        {{-- <a href="./login.html"><span class="icon_profile"></span></a> --}}
                     </div>
                 </div>
             </div>
             <div id="mobile-menu-wrap"></div>
+        </div>
+
+
+        <div id="mobile-menu-wrap"></div>
         </div>
     </header>
     <!-- Header End -->
@@ -122,22 +189,21 @@
                 <div class="col-lg-6">
                     <div class="footer__nav">
                         <ul>
-                            <li class="active"><a href="./index.html">Homepage</a></li>
-                            <li><a href="./categories.html">Categories</a></li>
+                            <li class="active"><a href="{{ route('homepage') }}">Homepage</a></li>
+                            <li><a href="">Categories</a></li>
                             <li><a href="./blog.html">Our Blog</a></li>
-                            <li><a href="#">Contacts</a></li>
+                            <li><a href="">Contacts</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <p>
                         Copyright &copy;
                         <script>
                             document.write(new Date().getFullYear());
                         </script> All rights reserved | This template is made with <i
-                            class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                            target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">HOANG
+                            DINH DUNG</a>
                     </p>
 
                 </div>
@@ -145,17 +211,6 @@
         </div>
     </footer>
     <!-- Footer Section End -->
-
-    <!-- Search model Begin -->
-    <div class="search-model" id="searchModel">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch"><i class="icon_close"></i></div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
-    </div>
-    <!-- Search model end -->
 
     <!-- Js Plugins -->
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
@@ -166,24 +221,10 @@
     <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var searchSwitch = document.getElementById('searchSwitch');
-            var searchModel = document.getElementById('searchModel');
 
-            searchSwitch.addEventListener('click', function() {
-                searchModel.classList.toggle('active');
-            });
-
-            // Close the search model when the close button is clicked
-            var searchCloseSwitch = document.querySelector('.search-close-switch');
-            searchCloseSwitch.addEventListener('click', function() {
-                searchModel.classList.remove('active');
-            });
-        });
-    </script>
-
-
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"
+        nonce="R7ijLAAF"></script>
 </body>
 
 </html>

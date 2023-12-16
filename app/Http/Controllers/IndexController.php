@@ -75,31 +75,47 @@ class IndexController extends Controller
 
         // Kiểm tra nếu $phimle không tồn tại hoặc là mảng rỗng
         $phimle = Movie::orderBy('id', 'DESC')->get();
+        $phimbo = Movie::orderBy('id', 'DESC')->where('thuocphim', 'phimbo')->get();
         $category_home = Category::with('movie')->take('3')->orderBy('id', 'DESC')->get();
-        return view('pages.home', compact('phim_hot', 'category', 'genre', 'country', 'category_home', 'phimhot_sidebar', 'phim_le_moi_nhat', 'phim_bo_moi_nhat', 'phimle'));
+        return view('pages.home', compact('phim_hot', 'category', 'genre', 'country', 'category_home', 'phimhot_sidebar', 'phim_le_moi_nhat', 'phim_bo_moi_nhat', 'phimle', 'phimbo'));
+    }
+    //phim hot
+    public function phimhot()
+    {
+        $category = Category::orderBy('id', 'ASC')->where('status', 1)->get();
+        $genre = Genre::orderBy('id', 'DESC')->get();
+        $country = Country::orderBy('id', 'DESC')->get();
+        $movie = Movie::where('thuocphim', 'phimbo')->orderBy('ngaycapnhat', 'DESC')->paginate(40);
+        $phimhot = Movie::withCount('episode')->where('phim_hot', 1)->where('status', 1)->orderBy('ngaycapnhat', 'DESC')->get();
+        $phimhot_sidebar = Movie::where('phim_hot', 1)->where('status', 1)->orderBy('ngaycapnhat', 'DESC')->take(5)->get();
+        return view('pages.phimhot', compact('category', 'genre', 'country', 'movie', 'phimhot_sidebar', 'phimhot'));
     }
 
     //phim lẻ
-    public function phimle($slug)
+    public function phimle()
     {
-        $category = Category::orderBy('position', 'ASC')->where('status', 1)->get();
+        $category = Category::orderBy('id', 'ASC')->where('status', 1)->get();
         $genre = Genre::orderBy('id', 'DESC')->get();
         $country = Country::orderBy('id', 'DESC')->get();
-
-        // Check if $phimle_slug is not null before accessing its properties
-        $phimle_slug = Movie::where('slug', $slug)->first();
-
-        if (!$phimle_slug) {
-            // Handle the case where $phimle_slug is null (e.g., show an error message)
-            return view('error.page_not_found');
-        }
-
-        $movie = Movie::where('category_id', $phimle_slug->id)->orderBy('ngaycapnhat', 'DESC')->paginate(12);
+        $movie = Movie::where('thuocphim', 'phimle')->orderBy('ngaycapnhat', 'DESC')->paginate(40);
+        $phimle = Movie::orderBy('id', 'DESC')->get();
         $phimhot_sidebar = Movie::where('phim_hot', 1)->where('status', 1)->orderBy('ngaycapnhat', 'DESC')->take(5)->get();
 
-        return view('pages.phimle', compact('category', 'genre', 'country', 'movie', 'phimhot_sidebar', 'phimle_slug'));
+        return view('pages.phimle', compact('category', 'genre', 'country', 'movie', 'phimhot_sidebar', 'phimle'));
     }
 
+    //phim bộ
+    public function phimbo()
+    {
+        $category = Category::orderBy('id', 'ASC')->where('status', 1)->get();
+        $genre = Genre::orderBy('id', 'DESC')->get();
+        $country = Country::orderBy('id', 'DESC')->get();
+        $movie = Movie::where('thuocphim', 'phimbo')->orderBy('ngaycapnhat', 'DESC')->paginate(40);
+        $phimbo = Movie::orderBy('id', 'DESC')->get();
+        $phimhot_sidebar = Movie::where('phim_hot', 1)->where('status', 1)->orderBy('ngaycapnhat', 'DESC')->take(5)->get();
+
+        return view('pages.phimbo', compact('category', 'genre', 'country', 'movie', 'phimhot_sidebar', 'phimbo'));
+    }
 
     //danh mục
     public function  category($slug)
@@ -186,6 +202,7 @@ class IndexController extends Controller
         // Liệt kê 3 tập phim mới nhất
         $episode_3_tapmoi = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->take('3')->get();
 
+        //đếm tập phim đã thêm
         $episode_all = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->get()->count();
         $episode = Episode::where('movie_id', $movie->id)->orderBy('episode', 'ASC')->get();
 

@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <div class="btn__all">
-                                    <a href="#" class="primary-btn">Xem thêm <span class="arrow_right"></span></a>
+                                    <a href="{{ route('phimhot') }}" class="primary-btn">Xem thêm <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -82,8 +82,7 @@
                                         </div>
                                         <div class="product__item__text">
                                             <ul>
-                                                <li>Active</li>
-                                                <li>Movie</li>
+                                                <li>{{$phimhot->genre->title}}</li>
                                             </ul>
                                             <h5><a href="{{ route('movie', $phimhot->slug) }}">{{ $phimhot->title }}</a>
                                             </h5>
@@ -102,7 +101,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <div class="btn__all">
-                                    <a href="#" class="primary-btn">Xem thêm <span class="arrow_right"></span></a>
+                                    <a href="{{ route('phimle') }}" class="primary-btn">Xem thêm <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +152,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <div class="btn__all">
-                                    <a href="#" class="primary-btn">Xem thêm<span class="arrow_right"></span></a>
+                                    <a href="{{ route('phimbo') }}" class="primary-btn">Xem thêm<span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>

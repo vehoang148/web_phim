@@ -35,13 +35,13 @@
     <div class="product__sidebar">
         <div class="product__sidebar__view">
             <div class="section-title">
-                <h5>Top Views</h5>
+                <h5>Xem nhiều</h5>
             </div>
             <ul class="filter__controls">
-                <li class="active" data-filter="*">Day</li>
-                <li data-filter=".week">Week</li>
-                <li data-filter=".month">Month</li>
-                <li data-filter=".years">Years</li>
+                <li class="active" data-filter="*">Ngày</li>
+                <li data-filter=".week">Tháng</li>
+                <li data-filter=".month">Năm</li>
+                {{-- <li data-filter=".years">Years</li> --}}
             </ul>
 
 

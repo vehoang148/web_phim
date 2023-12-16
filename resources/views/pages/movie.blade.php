@@ -59,10 +59,14 @@
                                                     Phim lẻ
                                                 @endif
                                             </li>
-                                            <li><span>Năm:</span> {{ $movie->ngaytao }}</li>
+                                            @if ($movie->year == 0)
+                                                <li><span>Năm:</span> Đang cập nhật</li>
+                                            @else
+                                                <li><span>Năm:</span> {{ $movie->year }}</li>
+                                            @endif
                                             <li><span>Quốc gia:</span> {{ $movie->country->title }}</li>
                                             <li><span>Thể loại:</span>
-                                                @foreach ($movie->movie_genre as $index => $mov_gen)
+                                                @foreach ($movie->movie_genre->take('3') as $index => $mov_gen)
                                                     {{ $mov_gen->title }}
                                                     @if ($index < count($movie->movie_genre) - 1)
                                                         ,
@@ -92,13 +96,13 @@
                                                 @endif
                                             @elseif($movie->thuocphim == 'phimle')
                                                 <li><span>Link phim:</span>
-                                                    @foreach ($episode as $key => $epi)
-                                                        {{-- <a
-                                                    href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $epi->episode) }}"> --}}
+                                                    @foreach ($movie->episode as $key => $epi)
                                                         @if ($epi->episode == 'HD')
-                                                            HD
-                                                        @elseif ($epi->episode == 'Full')
-                                                            FullHD
+                                                            <a
+                                                                href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $epi->episode) }}">HD</a>
+                                                        @elseif ($epi->episode == 'FullHD')
+                                                            <a
+                                                                href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $epi->episode) }}">FullHD</a>
                                                         @endif
                                                     @endforeach
                                             @endif
@@ -134,17 +138,16 @@
                             <div class="anime__details__btn">
                                 <a href="#" class="follow-btn"><i class="fa fa-share"></i> Share</a>
 
-                                    @if ($movie->thuocphim == 'phimbo')
-                                        <a href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $episode_tapdau->episode) }}"
-                                            class="watch-btn"><span>Xem ngay</span> <i class="fa fa-angle-right"></i></a>
-                                    @elseif ($movie->thuocphim == 'phimle')
-                                        @foreach ($episode as $key => $sotap)
-                                            <a href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $sotap->episode) }}"
-                                                class="watch-btn"><span>Xem Ngay</span> <i
-                                                    class="fa fa-angle-right"></i></a>
-                                        @endforeach
-                                    @endif
-                              
+                                @if ($movie->thuocphim == 'phimbo')
+                                    <a href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $episode_tapdau->episode) }}"
+                                        class="watch-btn"><span>Xem ngay</span> <i class="fa fa-angle-right"></i></a>
+                                @elseif ($movie->thuocphim == 'phimle')
+                                    @foreach ($episode as $key => $sotap)
+                                        <a href="{{ url('xem-phim/' . $movie->slug . '/tap-' . $sotap->episode) }}"
+                                            class="watch-btn"><span>Xem Ngay</span> <i class="fa fa-angle-right"></i></a>
+                                    @endforeach
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -166,52 +169,7 @@
                                     "demons" LOL</p>
                             </div>
                         </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="img/anime/review-2.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                                <p>Finally it came out ages ago</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="img/anime/review-3.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                                <p>Where is the episode 15 ? Slow update! Tch</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="img/anime/review-4.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                    "demons" LOL</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="img/anime/review-5.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                                <p>Finally it came out ages ago</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="img/anime/review-6.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                                <p>Where is the episode 15 ? Slow update! Tch</p>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="anime__details__form">
                         <div class="section-title">
@@ -228,15 +186,36 @@
                         <div class="section-title">
                             <h5>Có thể bạn muốn xem</h5>
                         </div>
-                        @foreach ($related->take(6) as $rela)
+                        @foreach ($related->take('8') as $rela)
                             <div class="product__sidebar__view__item set-bg"
                                 data-setbg="{{ asset('uploads/movie/' . $rela->image) }}">
-                                @php
-                                    $episodeCount = $episode->where('movie_id', $rela->id)->count();
-                                @endphp
-                                <div class="ep">{{ $rela->episodes }}/{{ $episodeCount }}</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">{{ $rela->title }}</a></h5>
+                                {{-- <div class="ep">{{ $rela->episode_count }}/{{ $rela->sotap }}</div> --}}
+                                @if ($rela->thuocphim == 'phimbo')
+                                    @if ($rela->episode_count == $rela->sotap)
+                                        <div class="ep">{{ $rela->episode_count }} /
+                                            {{ $rela->sotap }} - Hoàn thành
+                                        </div>
+                                    @else
+                                        <div class="ep">{{ $rela->episode_count }} /
+                                            {{ $rela->sotap }} - Đang cập nhật
+                                        </div>
+                                    @endif
+                                @elseif($rela->thuocphim == 'phimle')
+                                    @foreach ($rela->episode as $episo)
+                                        @if ($episo->episode == 'HD')
+                                            <div class="ep">HD
+                                            </div>
+                                        @elseif ($episo->episode == 'FullHD')
+                                            <div class="ep">FullHD
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endif
+                                <?php
+                                $random = mt_rand(1000, 10000);
+                                ?>
+                                <div class="view"><i class="fa fa-eye"></i> <?php echo $random; ?></div>
+                                <h5><a href="{{ route('movie', $rela->slug) }}">{{ $rela->title }}</a></h5>
                             </div>
                         @endforeach
                     </div>

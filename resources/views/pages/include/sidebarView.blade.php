@@ -1,3 +1,36 @@
+<style>
+    .product__sidebar__view__item {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .product__sidebar__view__item img {
+        transition: filter 0.3s ease;
+    }
+
+    .product__sidebar__view__item:hover img {
+        filter: blur(3px);
+    }
+
+    .play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        color: white;
+        /* Set play button color to white */
+    }
+
+    .product__sidebar__view__item:hover .play-btn {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+</style>
+
+
+
 <div class="product__pagination">
     <a href="#" class="current-page">1</a>
     <a href="#">2</a>
@@ -11,7 +44,7 @@
     <div class="product__sidebar">
         <div class="product__sidebar__view">
             <div class="section-title">
-                <h5>Top Views</h5>
+                <h5>Xem nhiều</h5>
             </div>
             <ul class="filter__controls">
                 <li class="active" data-filter="*">Day</li>
@@ -20,31 +53,17 @@
                 <li data-filter=".years">Years</li>
             </ul>
             <div class="filter__gallery">
-                <div class="product__sidebar__view__item set-bg mix day years" data-setbg="img/sidebar/tv-1.jpg">
-                    <div class="ep">18 / ?</div>
-                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                    <h5><a href="#">Boruto: Naruto next generations</a></h5>
-                </div>
-                <div class="product__sidebar__view__item set-bg mix month week" data-setbg="img/sidebar/tv-2.jpg">
-                    <div class="ep">18 / ?</div>
-                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                    <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                </div>
-                <div class="product__sidebar__view__item set-bg mix week years" data-setbg="img/sidebar/tv-3.jpg">
-                    <div class="ep">18 / ?</div>
-                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                    <h5><a href="#">Sword art online alicization war of underworld</a></h5>
-                </div>
-                <div class="product__sidebar__view__item set-bg mix years month" data-setbg="img/sidebar/tv-4.jpg">
-                    <div class="ep">18 / ?</div>
-                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                    <h5><a href="#">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
-                </div>
-                <div class="product__sidebar__view__item set-bg mix day" data-setbg="img/sidebar/tv-5.jpg">
-                    <div class="ep">18 / ?</div>
-                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                    <h5><a href="#">Fate stay night unlimited blade works</a></h5>
-                </div>
+                @foreach ($phimhot_sidebar as $key => $hot_side)
+                    <div class="product__sidebar__view__item set-bg mix day years"
+                        data-setbg="{{ asset('uploads/movie/' . $hot_side->image) }}">
+                        <div class="ep">18 / ?</div>
+                        <?php
+                        $random = mt_rand(1000, 5000);
+                        ?>
+                        <div class="view"><i class="fa fa-eye"></i> <?php echo $random; ?></div>
+                        <h5><a href="#">{{ $hot_side->title }}</a></h5>
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="product__sidebar__comment">
@@ -52,19 +71,22 @@
                 <h5>Phim mới</h5>
             </div>
             @foreach ($phimhot_sidebar as $key => $hot_side)
-            <div class="product__sidebar__comment__item">
-                <div class="product__sidebar__comment__item__pic">
-                    <img src="img/sidebar/comment-1.jpg" alt="">
+                <div class="product__sidebar__comment__item">
+                    <div class="product__sidebar__comment__item__pic">
+                        <img src="{{ asset('uploads/movie/' . $hot_side->image) }}" alt=""
+                            style="max-width: 100px; height: auto;">
+                    </div>
+                    <div class="product__sidebar__comment__item__text">
+                        <ul>
+                            {{ $hot_side->genre->title }}
+                        </ul>
+                        <h5><a href="{{ route('movie', $hot_side->slug) }}">{{ $hot_side->title }}</a></h5>
+                        <?php
+                        $random = mt_rand(10000, 30000);
+                        ?>
+                        <span><i class="fa fa-eye"></i> <?php echo $random; ?> Lượt xem</span>
+                    </div>
                 </div>
-                <div class="product__sidebar__comment__item__text">
-                    <ul>
-                        <li>Active</li>
-                        <li>Movie</li>
-                    </ul>
-                    <h5><a href="#">{{$hot_side->title}}</a></h5>
-                    <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-                </div>
-            </div>
             @endforeach
         </div>
     </div>

@@ -209,4 +209,15 @@ class MovieController extends Controller
         // Return a response
         return response()->json(['success' => true, 'message' => 'country updated successfully']);
     }
+     //thay dổi quốc gia sử dụng ajax
+     public function status_chosse(Request $request)
+     {
+         // Example logic: Update the movie category in the database
+         $movie = Movie::find($request->movie_id);
+         $movie->status = $request->status;
+         $movie->save();
+
+         // Return a response
+         return response()->json(['success' => true, 'message' => 'country updated successfully']);
+     }
 }

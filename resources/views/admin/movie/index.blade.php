@@ -77,13 +77,23 @@
                                         Thuyết Minh
                                     @endif
                                 </td>
+
                                 <td>
-                                    @if ($movie->status)
+                                    <select name="status" class="form-control status_choose" id="{{ $movie->id }}">
+                                        <option value="">Select Status</option>
+                                        @foreach ($movie as $key => $value)
+                                            <option value="{{ $key }}"
+                                                @if (isset($movie) && $movie->status == $key) selected @endif>{{ $value }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                {{-- @if ($movie->status)
                                         Hiển thị
                                     @else
                                         Không hiển thị
-                                    @endif
-                                </td>
+                                    @endif --}}
+
                                 <td>
                                     @if ($movie->phim_hot)
                                         Hot
@@ -98,7 +108,6 @@
                                         Phim bộ
                                     @endif
                                 </td>
-                                {{-- <td>{{ $movie->category->title }}</td> --}}
                                 <td>
                                     {!! Form::select('category_id', $category, isset($movie) ? $movie->category->id : '', [
                                         'class' => 'form-control category_choose',
